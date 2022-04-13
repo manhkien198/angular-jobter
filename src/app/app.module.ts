@@ -8,7 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { annotation, annotationSolid, HeroIconsModule } from 'ng-heroicons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +22,7 @@ import { annotation, annotationSolid, HeroIconsModule } from 'ng-heroicons';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HeroIconsModule.withIcons({ annotation, annotationSolid }),
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

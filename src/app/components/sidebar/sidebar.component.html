@@ -1,4 +1,10 @@
-<div class="sidebar">
+<nav class="sidebar" *ngIf="isLoggedIn$ | async as isLoggedIn">
   <img src="../../../assets/logo.svg" alt="logo" />
-  <hero-icon name="annotation"></hero-icon>
-</div>
+  <ul *ngFor="let link of links">
+    <li>
+      <a routerLink="{{ link.link }}" class="text-dark">
+        <i class="{{ link.icon }} text-blue-500 text-2xl"></i>{{ link.title }}
+      </a>
+    </li>
+  </ul>
+</nav>
