@@ -1,0 +1,14 @@
+.navbar {
+  width: 90vw;
+  max-width: 1120px;
+  margin: 30px auto;
+}
+.container {
+  max-width: 1120px;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
+  align-items: center;
+  margin-top: -3rem;
+  -webkit-box-align: center;
+  min-height: calc(100vh - 6rem);
+}
