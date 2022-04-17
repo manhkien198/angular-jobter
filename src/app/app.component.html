@@ -1,2 +1,45 @@
-<app-sidebar></app-sidebar>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="container z-20" autosize>
+  <mat-sidenav
+    mode="side"
+    [opened]="show"
+    class="w-60 h-screen"
+    *ngIf="isLoggedIn$ | async as isLoggedIn"
+  >
+    <img src="../../../assets/logo.svg" alt="logo" class="p-2" />
+
+    <mat-list class="mt-10">
+      <a routerLink="{{ link.link }}" *ngFor="let link of links">
+        <mat-list-item
+          routerLinkActive="active"
+          class="hover:bg-slate-200 mb-2"
+        >
+          <i class="{{ link.icon }} text-blue-500 text-2xl mr-5"></i>
+          {{ link.title }}
+        </mat-list-item>
+      </a>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar *ngIf="isLoggedIn$ | async as isLoggedIn" class="bg-white">
+      <button mat-button color="primary" (click)="show = !show">
+        <mat-icon>subject</mat-icon>
+      </button>
+      <h1 class="flex-1 text-center">Dashboard</h1>
+      <button
+        mat-flat-button
+        color="primary"
+        [matMenuTriggerFor]="menu"
+        class="p-0"
+      >
+        <i class="fa fa-user-o" aria-hidden="true"></i>
+        {{ username }}
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="handleLogout()">Logout</button>
+        </mat-menu>
+      </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

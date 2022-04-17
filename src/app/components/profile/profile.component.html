@@ -1,0 +1,41 @@
+<form
+  class="p-10 border rounded shadow-lg hover:shadow-xl bg-white"
+  [formGroup]="profileForm"
+  (ngSubmit)="submit()"
+>
+  <h2>Profile</h2>
+  <mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile>
+      <mat-form-field class="mt-5">
+        <mat-label>Name</mat-label>
+        <input matInput class="w-full" formControlName="name" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput class="w-full" formControlName="lastName" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput class="w-full" formControlName="email" />
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile>
+      <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <input matInput class="w-full" formControlName="location" />
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <button mat-button class="w-48 bg-sky-500 text-white">
+        Save Changes
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

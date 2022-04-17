@@ -1,0 +1,126 @@
+<main class="px-20 py-16 relative">
+  <form
+    class="p-10 border rounded shadow-lg hover:shadow-xl bg-white"
+    [formGroup]="searchForm"
+  >
+    <h2>Search Form</h2>
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile>
+        <mat-form-field class="mt-5">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            class="w-full"
+            formControlName="search"
+            (ngModelChange)="handleChange()"
+          />
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select class="w-full" formControlName="status">
+            <mat-option value="{{ item }}" *ngFor="let item of status">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Type</mat-label>
+          <mat-select class="w-full" formControlName="type">
+            <mat-option value="{{ item }}" *ngFor="let item of type">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Sort</mat-label>
+          <mat-select class="w-full" formControlName="sort">
+            <mat-option value="{{ item }}" *ngFor="let item of sort">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button
+          mat-button
+          class="w-48 bg-rose-300 text-red-500 mb-3"
+          (click)="clearFilter()"
+        >
+          Clear filter
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+  <h3 class="my-20 length" *ngIf="allJob?.length">
+    {{ allJob?.length }} Jobs Founded
+  </h3>
+  <h3 class="my-20" *ngIf="!allJob?.length">No Jobs To Display....</h3>
+  <div class="grid grid-cols-2 gap-x-3">
+    <article
+      *ngFor="let job of allJob"
+      class="mb-5 border rounded shadow-lg bg-white"
+    >
+      <div class="p-5">
+        <div class="flex items-center">
+          <Button
+            mat-button
+            class="w-10 h-10 bg-blue-500 text-white rounded mr-4"
+            >{{ job.company | avatar }}</Button
+          >
+          <div>
+            <h3 class="mb-0">{{ job.position }}</h3>
+            <mat-card-subtitle>{{ job.company }}</mat-card-subtitle>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="grid grid-cols-2 gap-x-1 mt-10">
+          <div class="mb-4">
+            <div class="flex flex-col">
+              <div class="mb-4">
+                <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                {{ job.jobLocation }}
+              </div>
+              <div class="mb-4">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                {{ job.jobType }}
+              </div>
+            </div>
+            <div class="flex gap-x-2">
+              <button mat-button class="bg-lime-300" (click)="editJob(job)">
+                Edit
+              </button>
+              <button
+                mat-button
+                class="bg-rose-200"
+                (click)="deleteJob(job._id)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col" [ngSwitch]="job.status">
+            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+            {{ job.updatedAt | date: "dd MM yyyy" }}
+            <button mat-button *ngSwitchCase="'pending'" class="bg-orange-200">
+              {{ job.status | titlecase }}
+            </button>
+            <button mat-button *ngSwitchCase="'interview'" class="bg-sky-200">
+              {{ job.status | titlecase }}
+            </button>
+            <button mat-button *ngSwitchCase="'declined'" class="bg-rose-200">
+              {{ job.status | titlecase }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>

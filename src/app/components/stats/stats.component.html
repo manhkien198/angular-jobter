@@ -1,0 +1,44 @@
+<main class="px-8 py-12">
+  <div class="grid grid-cols-3 gap-x-3 mb-40">
+    <div class="rounded px-5 py-8 border border-b-4 border-b-orange-300">
+      <div class="flex justify-between">
+        <p class="text-orange-300 text-3xl">{{ jobs?.pending || 0 }}</p>
+        <i
+          class="fa fa-briefcase text-orange-300 text-3xl"
+          aria-hidden="true"
+        ></i>
+      </div>
+      <h2>Pending Applications</h2>
+    </div>
+    <div class="rounded px-5 py-8 border border-b-4 border-b-sky-600">
+      <div class="flex justify-between">
+        <p class="text-sky-600 text-3xl">{{ jobs?.interview || 0 }}</p>
+        <i
+          class="fa fa-calendar-check-o text-sky-600 text-3xl"
+          aria-hidden="true"
+        ></i>
+      </div>
+      <h2>Interview Scheduled</h2>
+    </div>
+    <div class="rounded px-5 py-8 border border-b-4 border-b-red-500">
+      <div class="flex justify-between">
+        <p class="text-red-500 text-3xl">{{ jobs?.declined || 0 }}</p>
+        <i class="fa fa-bug text-red-500 text-3xl" aria-hidden="true"></i>
+      </div>
+      <h2>Jobs Declined</h2>
+    </div>
+  </div>
+  <ngx-charts-bar-vertical
+    *ngIf="result.length"
+    [view]="[700, 400]"
+    [results]="result"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [showGridLines]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [gradient]="true"
+  >
+  </ngx-charts-bar-vertical>
+</main>

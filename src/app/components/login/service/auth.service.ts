@@ -10,12 +10,14 @@ export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  constructor(private router: Router) {}
+  constructor() {}
   public submit(value: FormValue): void {
     this.loggedIn.next(true);
-    this.router.navigate(['/home']);
   }
   public isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
+  }
+  public logout(): void {
+    this.loggedIn.next(false);
   }
 }
