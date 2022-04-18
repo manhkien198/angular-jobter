@@ -19,7 +19,11 @@
       <div class="w-1/3 mr-4">
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Status</mat-label>
-          <mat-select class="w-full" formControlName="status">
+          <mat-select
+            class="w-full"
+            formControlName="status"
+            (ngModelChange)="handleChange()"
+          >
             <mat-option value="{{ item }}" *ngFor="let item of status">
               {{ item }}
             </mat-option>
@@ -41,7 +45,11 @@
       <div class="w-1/3 mr-4">
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Sort</mat-label>
-          <mat-select class="w-full" formControlName="sort">
+          <mat-select
+            class="w-full"
+            formControlName="sort"
+            (ngModelChange)="handleChange()"
+          >
             <mat-option value="{{ item }}" *ngFor="let item of sort">
               {{ item }}
             </mat-option>

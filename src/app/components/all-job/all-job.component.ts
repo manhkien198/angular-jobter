@@ -66,6 +66,7 @@ export class AllJobComponent implements OnInit {
     this.searchService.deleteJob(id).subscribe(
       (resp) => {
         this.toastr.success('Delete Job Successfully');
+        this.allJob = this.allJob.filter((x) => x._id !== id);
       },
       (err) => {
         this.toastr.error('Failed to delete Job');
