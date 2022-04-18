@@ -56,7 +56,12 @@ export class AllJobComponent implements OnInit {
     private toastr: ToastrService
   ) {}
   public clearFilter(): void {
-    this.searchForm.reset();
+    this.searchForm.patchValue({
+      search: '',
+      status: 'all',
+      type: 'all',
+      sort: 'latest',
+    });
   }
   public editJob(job: Job): void {
     this.searchService.editJob(job);

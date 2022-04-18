@@ -11,11 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddJobComponent implements OnInit {
   public addForm = this.fb.group({
-    position: [, Validators.required],
-    company: [, Validators.required],
-    location: [, Validators.required],
-    status: [, Validators.required],
-    type: [, Validators.required],
+    position: ['', Validators.required],
+    company: ['', Validators.required],
+    location: ['Ha Noi', Validators.required],
+    status: ['pending', Validators.required],
+    type: ['full-time', Validators.required],
   });
   public isEdit: boolean = false;
   constructor(
@@ -34,7 +34,13 @@ export class AddJobComponent implements OnInit {
     'internship',
   ];
   public clearFilter(): void {
-    this.addForm.reset();
+    this.addForm.patchValue({
+      position: '',
+      company: '',
+      location: 'Ha Noi',
+      status: 'pending',
+      type: 'full-time',
+    });
   }
   public submit(): void {
     if (this.addForm.invalid) return;
@@ -62,7 +68,13 @@ export class AddJobComponent implements OnInit {
   }
   ngOnInit(): void {
     if (!this.jobService.jobItem) {
-      this.addForm.reset();
+      this.addForm.patchValue({
+        position: '',
+        company: '',
+        location: 'Ha Noi',
+        status: 'pending',
+        type: 'full-time',
+      });
       this.isEdit = true;
     } else {
       this.isEdit = false;
