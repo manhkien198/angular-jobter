@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DefaultStats } from 'src/app/model';
 import { ChartValue } from '../../model/stats';
+import { AuthService } from '../login/service/auth.service';
 import { StatsService } from './stats.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './components/login/service/auth.service';
 import { Link } from './model/sidebar';
 
@@ -11,7 +11,7 @@ import { Link } from './model/sidebar';
 })
 export class AppComponent {
   title = 'angular-jobter';
-  public isLoggedIn$: Observable<boolean> = new Observable<boolean>();
+  public isLoggedIn$: boolean;
   public show = true;
   public username = '';
   public links: Link[] = [
@@ -31,9 +31,13 @@ export class AppComponent {
     localStorage.removeItem('username');
     this.authService.logout();
     this.router.navigate(['/login']);
+    this.isLoggedIn$ =
+      localStorage.getItem('isLoggedIn') === 'false' ? false : true;
   }
   ngOnInit(): void {
-    this.isLoggedIn$ = this.authService.isLoggedIn();
+    this.isLoggedIn$ =
+      localStorage.getItem('isLoggedIn') === 'true' ? true : false;
+
     this.username = localStorage.getItem('username') || '';
   }
 }

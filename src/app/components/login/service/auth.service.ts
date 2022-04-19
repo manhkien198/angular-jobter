@@ -7,17 +7,23 @@ import { FormValue } from 'src/app/model/login';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  private loggedIn: boolean = false;
   constructor() {}
   public submit(value: FormValue): void {
-    this.loggedIn.next(true);
+    this.loggedIn = true;
   }
-  public isLoggedIn(): Observable<boolean> {
-    return this.loggedIn.asObservable();
+  public isLoggedIn(): boolean {
+    let status = false;
+    if (localStorage.getItem('isLoggedIn') == 'true') {
+      status = true;
+    } else {
+      status = false;
+    }
+    return status;
   }
   public logout(): void {
-    this.loggedIn.next(false);
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('token');
   }
+  ngOnInit(): void {}
 }

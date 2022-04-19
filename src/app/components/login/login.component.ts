@@ -30,7 +30,9 @@ export class LoginComponent implements OnInit {
   get getform() {
     return this.loginForm.controls;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.service.logout();
+  }
   public submit(): void {
     this.submitted = true;
 
@@ -51,9 +53,12 @@ export class LoginComponent implements OnInit {
         (data) => {
           this.service.submit(this.loginForm.value);
           localStorage.setItem('Auth_token', data.user.token);
+          localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('username', data.user.name);
           this.http.getInfo(data.user);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard']).then(() => {
+            window.location.reload();
+          });
           this.toastr.success('Login Successfully');
         },
 
