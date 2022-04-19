@@ -3,7 +3,7 @@
     mode="side"
     [opened]="show"
     class="w-60 h-screen"
-    *ngIf="isLoggedIn$"
+    *ngIf="authService.isLoggedIn()"
   >
     <img src="../../../assets/logo.svg" alt="logo" class="p-2" />
 
@@ -21,7 +21,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar *ngIf="isLoggedIn$" class="bg-white">
+    <mat-toolbar *ngIf="authService.isLoggedIn()" class="bg-white">
       <button mat-button color="primary" (click)="show = !show">
         <mat-icon>subject</mat-icon>
       </button>

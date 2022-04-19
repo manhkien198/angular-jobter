@@ -25,19 +25,14 @@ export class AppComponent {
     { icon: 'fa fa-address-book-o', title: 'Profile', link: '/profile' },
   ];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
   public handleLogout(): void {
     localStorage.removeItem('Auth_token');
     localStorage.removeItem('username');
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.isLoggedIn$ =
-      localStorage.getItem('isLoggedIn') === 'false' ? false : true;
   }
   ngOnInit(): void {
-    this.isLoggedIn$ =
-      localStorage.getItem('isLoggedIn') === 'true' ? true : false;
-    this.authService.logout();
     this.username = localStorage.getItem('username') || '';
   }
 }
