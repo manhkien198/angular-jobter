@@ -34,5 +34,6 @@ export class AppComponent {
   }
   ngOnInit(): void {
     this.username = localStorage.getItem('username') || '';
+    this.authService.logout();
   }
 }
