@@ -7,7 +7,7 @@ import { FormValue } from 'src/app/model/login';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn: boolean = false;
+  private loggedIn: boolean;
   constructor() {}
   public submit(value: FormValue): void {
     this.loggedIn = true;

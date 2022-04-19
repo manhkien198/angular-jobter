@@ -11,7 +11,6 @@ import { Link } from './model/sidebar';
 })
 export class AppComponent {
   title = 'angular-jobter';
-  public isLoggedIn$: boolean;
   public show = true;
   public username = '';
   public links: Link[] = [
@@ -34,6 +33,5 @@ export class AppComponent {
   }
   ngOnInit(): void {
     this.username = localStorage.getItem('username') || '';
-    this.authService.logout();
   }
 }
