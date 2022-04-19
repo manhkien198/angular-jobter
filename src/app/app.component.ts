@@ -37,7 +37,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.isLoggedIn$ =
       localStorage.getItem('isLoggedIn') === 'true' ? true : false;
-
+    this.authService.logout();
     this.username = localStorage.getItem('username') || '';
   }
 }
