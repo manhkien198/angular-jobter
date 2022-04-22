@@ -1,10 +1,11 @@
+import { ResponseLogin } from './../../model/login';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FormValue } from 'src/app/model/login';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './service/auth.service';
 import { HttpServerService } from './service/http-server.service';
-import { ToastrService } from 'ngx-toastr';
+import { first, map } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +26,13 @@ export class LoginComponent implements OnInit {
     private service: AuthService,
     private http: HttpServerService,
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) {
+    if (this.service.userValue) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
   get getform() {
     return this.loginForm.controls;
   }
@@ -49,24 +55,24 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
-      this.http.login(this.loginForm.value).subscribe(
-        (data) => {
-          this.service.submit(this.loginForm.value);
-          localStorage.setItem('Auth_token', data.user.token);
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('username', data.user.name);
-          this.http.getInfo(data.user);
-          this.router.navigate(['/dashboard']);
-          this.toastr.success('Login Successfully');
-        },
-
-        (error) => {
-          this.toastr.error('Failed to Login');
-          this.router.navigate(['/login']);
-        }
-      );
+      this.service
+        .login(this.loginForm.value)
+        .pipe(first())
+        .subscribe({
+          next: () => {
+            // get return url from query parameters or default to home page
+            const returnUrl =
+              this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+            this.router.navigateByUrl(returnUrl);
+          },
+          error: (error) => {
+            console.log('error :', error);
+            this.toastr.error(error);
+          },
+        });
     }
   }
+
   public prevent(event: Event): void {
     event.preventDefault();
   }

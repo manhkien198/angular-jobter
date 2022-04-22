@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './components/login/service/auth.service';
+import { User } from './model';
 import { Link } from './model/sidebar';
 
 @Component({
@@ -11,6 +11,7 @@ import { Link } from './model/sidebar';
 })
 export class AppComponent {
   title = 'angular-jobter';
+  user: User;
   public show = true;
   public username = '';
   public links: Link[] = [
@@ -24,7 +25,12 @@ export class AppComponent {
     { icon: 'fa fa-address-book-o', title: 'Profile', link: '/profile' },
   ];
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {
+    this.authService.user.subscribe((x) => (this.user = x));
+    this.username = localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user')).user.name
+      : '';
+  }
   public handleLogout(): void {
     localStorage.removeItem('Auth_token');
     localStorage.removeItem('username');
@@ -32,6 +38,6 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
   ngOnInit(): void {
-    this.username = localStorage.getItem('username') || '';
+    console.log(this.username);
   }
 }
