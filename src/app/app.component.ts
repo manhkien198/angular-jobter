@@ -37,7 +37,5 @@ export class AppComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-  ngOnInit(): void {
-    console.log(this.username);
-  }
+  ngOnInit(): void {}
 }
